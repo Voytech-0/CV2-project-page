@@ -98,7 +98,7 @@
                 <div class="container" style="margin-bottom: 2rem">
                     <video
                         id="main-video"
-                        src="./static/videos/demo1.mp4"
+                        src="./static/videos_looped/demo1_extended.mp4"
                         autoplay
                         loop
                         playsinline
@@ -122,7 +122,7 @@
                                 height="100%"
                             >
                                 <source
-                                    src="./static/videos/demo1_upscaled.mp4"
+                                    src="./static/videos_looped/demo1_upscaled_extended.mp4"
                                     type="video/mp4"
                                 />
                             </video>
@@ -144,7 +144,7 @@
                                     height="100%"
                                 >
                                     <source
-                                        src="./static/videos/demo1_upscaled_denoised.mp4"
+                                        src="./static/videos_looped/demo1_upscaled_denoised_extended.mp4"
                                         type="video/mp4"
                                     />
                                 </video>
@@ -168,7 +168,7 @@
                                 height="100%"
                             >
                                 <source
-                                    src="./static/videos/denoised_demo1.mp4"
+                                    src="./static/videos_looped/denoised_demo1_extended.mp4"
                                     type="video/mp4"
                                 />
                             </video>
@@ -190,7 +190,7 @@
                                     height="100%"
                                 >
                                     <source
-                                        src="./static/videos/denoised_demo1_upscaled.mp4"
+                                        src="./static/videos_looped/denoised_demo1_upscaled_extended.mp4"
                                         type="video/mp4"
                                     />
                                 </video>
@@ -267,31 +267,37 @@
             // Video switching logic
             const videoSets = {
                 demo1: {
-                    main: "./static/videos/demo1.mp4",
-                    upscaled: "./static/videos/demo1_upscaled.mp4",
+                    main: "./static/videos_looped/demo1_extended.mp4",
+                    upscaled:
+                        "./static/videos_looped/demo1_upscaled_extended.mp4",
                     upscaledDenoised:
-                        "./static/videos/demo1_upscaled_denoised.mp4",
-                    denoised: "./static/videos/denoised_demo1.mp4",
+                        "./static/videos_looped/demo1_upscaled_denoised_extended.mp4",
+                    denoised:
+                        "./static/videos_looped/denoised_demo1_extended.mp4",
                     denoisedUpscaled:
-                        "./static/videos/denoised_demo1_upscaled.mp4",
+                        "./static/videos_looped/denoised_demo1_upscaled_extended.mp4",
                 },
                 demo2: {
-                    main: "./static/videos/demo2.mp4",
-                    upscaled: "./static/videos/demo2_upscaled.mp4",
+                    main: "./static/videos_looped/demo2_extended.mp4",
+                    upscaled:
+                        "./static/videos_looped/demo2_upscaled_extended.mp4",
                     upscaledDenoised:
-                        "./static/videos/demo2_upscaled_denoised.mp4",
-                    denoised: "./static/videos/denoised_demo2.mp4",
+                        "./static/videos_looped/demo2_upscaled_denoised_extended.mp4",
+                    denoised:
+                        "./static/videos_looped/denoised_demo2_extended.mp4",
                     denoisedUpscaled:
-                        "./static/videos/denoised_demo2_upscaled.mp4",
+                        "./static/videos_looped/denoised_demo2_upscaled_extended.mp4",
                 },
                 demo3: {
-                    main: "./static/videos/demo3.mp4",
-                    upscaled: "./static/videos/demo3_upscaled.mp4",
+                    main: "./static/videos_looped/demo3_extended.mp4",
+                    upscaled:
+                        "./static/videos_looped/demo3_upscaled_extended.mp4",
                     upscaledDenoised:
-                        "./static/videos/demo3_upscaled_denoised.mp4",
-                    denoised: "./static/videos/denoised_demo3.mp4",
+                        "./static/videos_looped/demo3_upscaled_denoised_extended.mp4",
+                    denoised:
+                        "./static/videos_looped/denoised_demo3_extended.mp4",
                     denoisedUpscaled:
-                        "./static/videos/denoised_demo3_upscaled.mp4",
+                        "./static/videos_looped/denoised_demo3_upscaled_extended.mp4",
                 },
             };
 
