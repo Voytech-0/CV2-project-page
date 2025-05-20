@@ -35,6 +35,28 @@
                             <h1 class="title is-1 publication-title">
                                 Image-To-Video Generation
                             </h1>
+                            <div class="column has-text-centered">
+                                <div class="buttons is-centered">
+                                    <button
+                                        id="btn-demo1"
+                                        class="button is-normal is-rounded is-dark"
+                                    >
+                                        Demo 1
+                                    </button>
+                                    <button
+                                        id="btn-demo2"
+                                        class="button is-normal is-rounded is-dark"
+                                    >
+                                        Demo 2
+                                    </button>
+                                    <button
+                                        id="btn-demo3"
+                                        class="button is-normal is-rounded is-dark"
+                                    >
+                                        Demo 3
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -203,15 +225,94 @@
                 mainVideo.addEventListener("seeked", () => {
                     subVideos.forEach((v) => {
                         // Only update if the time is different to avoid redundant seeks
-                        if (
-                            Math.abs(v.currentTime - mainVideo.currentTime) >
-                            0.05
-                        ) {
+                        if (Math.abs(v.currentTime - mainVideo.currentTime) > 0.05) {
                             v.currentTime = mainVideo.currentTime;
                         }
                     });
                 });
             }
+
+            // Video switching logic
+            const videoSets = {
+                demo1: {
+                    main: "./static/videos/demo1.mp4",
+                    upscaled: "./static/videos/demo1_upscaled.mp4",
+                    upscaledDenoised: "./static/videos/demo1_upscaled_denoised.mp4",
+                    denoised: "./static/videos/denoised_demo1.mp4",
+                    denoisedUpscaled: "./static/videos/denoised_demo1_upscaled.mp4"
+                },
+                demo2: {
+                    main: "./static/videos/demo2.mp4",
+                    upscaled: "./static/videos/demo2_upscaled.mp4",
+                    upscaledDenoised: "./static/videos/demo2_upscaled_denoised.mp4",
+                    denoised: "./static/videos/denoised_demo2.mp4",
+                    denoisedUpscaled: "./static/videos/denoised_demo2_upscaled.mp4"
+                },
+                demo3: {
+                    main: "./static/videos/demo3.mp4",
+                    upscaled: "./static/videos/demo3_upscaled.mp4",
+                    upscaledDenoised: "./static/videos/demo3_upscaled_denoised.mp4",
+                    denoised: "./static/videos/denoised_demo3.mp4",
+                    denoisedUpscaled: "./static/videos/denoised_demo3_upscaled.mp4"
+                }
+            };
+
+            function setVideoSources(setName) {
+                const set = videoSets[setName];
+                if (!set) return;
+
+                // Main video
+                mainVideo.src = set.main;
+                mainVideo.load();
+
+                // Upscaled (first occurrence)
+                const upscaledVideos = document.querySelectorAll('video#upscaled');
+                if (upscaledVideos.length > 0) {
+                    const upscaledSource = upscaledVideos[0].querySelector('source');
+                    if (upscaledSource) {
+                        upscaledSource.src = set.upscaled;
+                        upscaledVideos[0].load();
+                    }
+                }
+
+                // Upscaled-Denoised (first occurrence)
+                const upscaledDenoisedVideos = document.querySelectorAll('video#upscaled-denoised-video');
+                if (upscaledDenoisedVideos.length > 0) {
+                    const upscaledDenoisedSource = upscaledDenoisedVideos[0].querySelector('source');
+                    if (upscaledDenoisedSource) {
+                        upscaledDenoisedSource.src = set.upscaledDenoised;
+                        upscaledDenoisedVideos[0].load();
+                    }
+                }
+
+                // Denoised (second occurrence of #upscaled)
+                if (upscaledVideos.length > 1) {
+                    const denoisedSource = upscaledVideos[1].querySelector('source');
+                    if (denoisedSource) {
+                        denoisedSource.src = set.denoised;
+                        upscaledVideos[1].load();
+                    }
+                }
+
+                // Denoised-Upscaled (second occurrence of #upscaled-denoised-video)
+                if (upscaledDenoisedVideos.length > 1) {
+                    const denoisedUpscaledSource = upscaledDenoisedVideos[1].querySelector('source');
+                    if (denoisedUpscaledSource) {
+                        denoisedUpscaledSource.src = set.denoisedUpscaled;
+                        upscaledDenoisedVideos[1].load();
+                    }
+                }
+            }
+
+            document.getElementById('btn-demo1').addEventListener('click', function() {
+                setVideoSources('demo1');
+            });
+            document.getElementById('btn-demo2').addEventListener('click', function() {
+                setVideoSources('demo2');
+            });
+            document.getElementById('btn-demo3').addEventListener('click', function() {
+                setVideoSources('demo3');
+            });
         </script>
     </body>
 </html>
