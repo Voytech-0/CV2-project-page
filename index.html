@@ -65,7 +65,36 @@
 
         <section class="section">
             <div class="container is-max-desktop">
-                <!-- Full width-video. Stopping it stops the other videos below -->
+                <!-- full width image frame001 -->
+                <div class="container" style="margin-bottom: 0.5rem">
+                    <div style="position: relative; width: 100%">
+                        <img
+                            id="main-image"
+                            src="./static/images/demo1_frame001.png"
+                            alt="Original"
+                            style="width: 100%; height: auto; display: block"
+                        />
+                        <span
+                            style="
+                                position: absolute;
+                                top: 10px;
+                                left: 10px;
+                                z-index: 3;
+                                background: rgba(0, 0, 0, 0.6);
+                                color: #fff;
+                                padding: 4px 12px;
+                                border-radius: 6px;
+                                font-weight: bold;
+                                font-size: 1.1em;
+                                pointer-events: none;
+                            "
+                        >
+                            Original
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Full width-video.-->
                 <div class="container" style="margin-bottom: 2rem">
                     <video
                         id="main-video"
@@ -225,7 +254,10 @@
                 mainVideo.addEventListener("seeked", () => {
                     subVideos.forEach((v) => {
                         // Only update if the time is different to avoid redundant seeks
-                        if (Math.abs(v.currentTime - mainVideo.currentTime) > 0.05) {
+                        if (
+                            Math.abs(v.currentTime - mainVideo.currentTime) >
+                            0.05
+                        ) {
                             v.currentTime = mainVideo.currentTime;
                         }
                     });
@@ -237,24 +269,30 @@
                 demo1: {
                     main: "./static/videos/demo1.mp4",
                     upscaled: "./static/videos/demo1_upscaled.mp4",
-                    upscaledDenoised: "./static/videos/demo1_upscaled_denoised.mp4",
+                    upscaledDenoised:
+                        "./static/videos/demo1_upscaled_denoised.mp4",
                     denoised: "./static/videos/denoised_demo1.mp4",
-                    denoisedUpscaled: "./static/videos/denoised_demo1_upscaled.mp4"
+                    denoisedUpscaled:
+                        "./static/videos/denoised_demo1_upscaled.mp4",
                 },
                 demo2: {
                     main: "./static/videos/demo2.mp4",
                     upscaled: "./static/videos/demo2_upscaled.mp4",
-                    upscaledDenoised: "./static/videos/demo2_upscaled_denoised.mp4",
+                    upscaledDenoised:
+                        "./static/videos/demo2_upscaled_denoised.mp4",
                     denoised: "./static/videos/denoised_demo2.mp4",
-                    denoisedUpscaled: "./static/videos/denoised_demo2_upscaled.mp4"
+                    denoisedUpscaled:
+                        "./static/videos/denoised_demo2_upscaled.mp4",
                 },
                 demo3: {
                     main: "./static/videos/demo3.mp4",
                     upscaled: "./static/videos/demo3_upscaled.mp4",
-                    upscaledDenoised: "./static/videos/demo3_upscaled_denoised.mp4",
+                    upscaledDenoised:
+                        "./static/videos/demo3_upscaled_denoised.mp4",
                     denoised: "./static/videos/denoised_demo3.mp4",
-                    denoisedUpscaled: "./static/videos/denoised_demo3_upscaled.mp4"
-                }
+                    denoisedUpscaled:
+                        "./static/videos/denoised_demo3_upscaled.mp4",
+                },
             };
 
             function setVideoSources(setName) {
@@ -264,11 +302,24 @@
                 // Main video
                 mainVideo.src = set.main;
                 mainVideo.load();
+            }
+
+            // Image switching logic for the "original" image
+            function setImageSources(setName) {
+                // expects images with ids 'main-image'
+                // and files like images/demo1_frame001.png, images/demo2_frame001.png, etc.
+                const setNumber = setName.replace("demo", "");
+                const mainImage = document.getElementById("main-image");
+                if (mainImage) {
+                    mainImage.src = `./static/images/demo${setNumber}_frame001.png`;
+                }
 
                 // Upscaled (first occurrence)
-                const upscaledVideos = document.querySelectorAll('video#upscaled');
+                const upscaledVideos =
+                    document.querySelectorAll("video#upscaled");
                 if (upscaledVideos.length > 0) {
-                    const upscaledSource = upscaledVideos[0].querySelector('source');
+                    const upscaledSource =
+                        upscaledVideos[0].querySelector("source");
                     if (upscaledSource) {
                         upscaledSource.src = set.upscaled;
                         upscaledVideos[0].load();
@@ -276,9 +327,12 @@
                 }
 
                 // Upscaled-Denoised (first occurrence)
-                const upscaledDenoisedVideos = document.querySelectorAll('video#upscaled-denoised-video');
+                const upscaledDenoisedVideos = document.querySelectorAll(
+                    "video#upscaled-denoised-video",
+                );
                 if (upscaledDenoisedVideos.length > 0) {
-                    const upscaledDenoisedSource = upscaledDenoisedVideos[0].querySelector('source');
+                    const upscaledDenoisedSource =
+                        upscaledDenoisedVideos[0].querySelector("source");
                     if (upscaledDenoisedSource) {
                         upscaledDenoisedSource.src = set.upscaledDenoised;
                         upscaledDenoisedVideos[0].load();
@@ -287,7 +341,8 @@
 
                 // Denoised (second occurrence of #upscaled)
                 if (upscaledVideos.length > 1) {
-                    const denoisedSource = upscaledVideos[1].querySelector('source');
+                    const denoisedSource =
+                        upscaledVideos[1].querySelector("source");
                     if (denoisedSource) {
                         denoisedSource.src = set.denoised;
                         upscaledVideos[1].load();
@@ -296,7 +351,8 @@
 
                 // Denoised-Upscaled (second occurrence of #upscaled-denoised-video)
                 if (upscaledDenoisedVideos.length > 1) {
-                    const denoisedUpscaledSource = upscaledDenoisedVideos[1].querySelector('source');
+                    const denoisedUpscaledSource =
+                        upscaledDenoisedVideos[1].querySelector("source");
                     if (denoisedUpscaledSource) {
                         denoisedUpscaledSource.src = set.denoisedUpscaled;
                         upscaledDenoisedVideos[1].load();
@@ -304,15 +360,24 @@
                 }
             }
 
-            document.getElementById('btn-demo1').addEventListener('click', function() {
-                setVideoSources('demo1');
-            });
-            document.getElementById('btn-demo2').addEventListener('click', function() {
-                setVideoSources('demo2');
-            });
-            document.getElementById('btn-demo3').addEventListener('click', function() {
-                setVideoSources('demo3');
-            });
+            document
+                .getElementById("btn-demo1")
+                .addEventListener("click", function () {
+                    setVideoSources("demo1");
+                    setImageSources("demo1");
+                });
+            document
+                .getElementById("btn-demo2")
+                .addEventListener("click", function () {
+                    setVideoSources("demo2");
+                    setImageSources("demo2");
+                });
+            document
+                .getElementById("btn-demo3")
+                .addEventListener("click", function () {
+                    setVideoSources("demo3");
+                    setImageSources("demo3");
+                });
         </script>
     </body>
 </html>
